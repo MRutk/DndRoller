@@ -39,6 +39,8 @@ public class RollFragment extends Fragment {
     private Integer[] diceNumbers = new Integer[]{1,2,3,4,5,6,7,8,9,10}; //looks bad explained in ProfileFragment.java (adapter does like int values form resource)
     private Integer[] sideNumbers = new Integer[]{3,4,6,8,10,12,20,100};
 
+    private Profile prof;
+
     public RollFragment() {
         // Required empty public constructor
     }
@@ -75,9 +77,22 @@ public class RollFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rollView = inflater.inflate(R.layout.fragment_roll, container, false);
-        /*specThrow = (Spinner) rollView.findViewById(R.id.specialThrowSpinner);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(), R.array.special_throws, android.R.layout.simple_spinner_dropdown_item);
-        specThrow.setAdapter(adapter);*/
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getActivity().getApplicationContext(), R.array.regular_throws, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, diceNumbers);
+        ArrayAdapter<Integer> adapter3 = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, sideNumbers);
+
+        specThrow = (Spinner) rollView.findViewById(R.id.specialThrowSpinner);
+        specThrow.setAdapter(adapter);
+        regThrow = (Spinner) rollView.findViewById(R.id.regularTSpinner);
+        regThrow.setAdapter(adapter1);
+        diceNo = (Spinner) rollView.findViewById(R.id.noDicespinner);
+        diceNo.setAdapter(adapter2);
+        sidesNo = (Spinner) rollView.findViewById(R.id.noSidesSpinner);
+        sidesNo.setAdapter(adapter3);
+
+
 
         populateSpinnerString(rollView,specThrow,R.id.specialThrowSpinner,R.array.special_throws);
         populateSpinnerString(rollView,regThrow,R.id.regularTSpinner,R.array.regular_throws);

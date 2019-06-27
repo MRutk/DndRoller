@@ -13,32 +13,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/conTx"
-            android:layout_width="79dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="92dp"
-            android:layout_marginEnd="27dp"
-            android:layout_marginRight="27dp"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/dexTx"
+        <Spinner
+            android:id="@+id/intelligence"
+            android:layout_width="101dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="149dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/dexTx"
-            android:layout_width="79dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="92dp"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
+        <Spinner
+            android:id="@+id/dexterity"
+            android:layout_width="101dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="100dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toStartOf="@+id/constitution"
+            app:layout_constraintStart_toEndOf="@+id/Strength"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/wisdom"
+            android:layout_width="101dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="24dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toStartOf="@+id/charisma"
+            app:layout_constraintStart_toEndOf="@+id/intelligence"
+            app:layout_constraintTop_toBottomOf="@+id/dexterity" />
+
+        <Spinner
+            android:id="@+id/constitution"
+            android:layout_width="101dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/charisma"
+            android:layout_width="101dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="149dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/Strength"
+            android:layout_width="101dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="100dp"
+            android:spinnerMode="dropdown"
+            android:tag="Strength"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,25 +97,31 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/atrib_str"
+            app:layout_constraintBottom_toTopOf="@+id/Strength"
             app:layout_constraintEnd_toStartOf="@+id/textView4"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="73dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/atrib_dex"
+            app:layout_constraintBottom_toTopOf="@+id/dexterity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView5"
@@ -90,11 +132,14 @@
             android:layout_marginTop="73dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/atrib_con"
+            app:layout_constraintBottom_toTopOf="@+id/constitution"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.955"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView7"
@@ -102,73 +147,31 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="122dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/atrib_int"
+            app:layout_constraintBottom_toTopOf="@+id/intelligence"
             app:layout_constraintEnd_toStartOf="@+id/textView8"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/intTx"
-            android:layout_width="79dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="302dp"
-            android:layout_marginRight="302dp"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/strTx" />
-
-        <EditText
-            android:id="@+id/wisTx"
-            android:layout_width="79dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginRight="48dp"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/charTx"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/intTx"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dexTx" />
-
-        <EditText
-            android:id="@+id/charTx"
-            android:layout_width="79dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="26dp"
-            android:layout_marginRight="26dp"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/conTx" />
+            app:layout_constraintTop_toBottomOf="@+id/Strength"
+            app:layout_constraintVertical_bias="0.428" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="126dp"
+            android:layout_marginBottom="4dp"
             android:text="@string/atrib_wis"
+            app:layout_constraintBottom_toTopOf="@+id/wisdom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView9"
@@ -179,28 +182,32 @@
             android:layout_marginTop="128dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/atrib_char"
+            app:layout_constraintBottom_toTopOf="@+id/charisma"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.86"
             app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.333" />
 
         <EditText
             android:id="@+id/armorClass"
-            android:layout_width="69dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginLeft="26dp"
-            android:layout_marginTop="194dp"
-            android:layout_marginEnd="317dp"
-            android:layout_marginRight="317dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
             android:ems="10"
             android:hint="@string/armour_class"
             android:inputType="number"
             android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/intelligence"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/intelligence"
+            app:layout_constraintTop_toBottomOf="@+id/intelligence" />
 
         <EditText
             android:id="@+id/profileName"
@@ -226,14 +233,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="292dp"
             android:layout_marginLeft="292dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:text="@string/button_add"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/charTx" />
+            app:layout_constraintTop_toBottomOf="@+id/charisma" />
 
         <Button
             android:id="@+id/bDelete"
@@ -279,23 +286,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/armorClass" />
-
-        <EditText
-            android:id="@+id/strTx"
-            android:layout_width="79dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="92dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toStartOf="@+id/dexTx"
-            app:layout_constraintHorizontal_bias="0.145"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
