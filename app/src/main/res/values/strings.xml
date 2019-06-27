@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">DndRoller</string>
+    <string name="title_roll">Roll</string>
+    <string name="title_profile">Profiles</string>
+    <string name="title_information">Info</string>
+    <string name="atrib_str">Strength</string>
+    <string name="atrib_dex">Dexterity</string>
+    <string name="atrib_con">Constitution</string>
+    <string name="atrib_int">Intelligence</string>
+    <string name="atrib_wis">Wisdom</string>
+    <string name="atrib_char">Charisma</string>
+    <string name="select_profile">Select Profile</string>
+    <string name="select_throw">Select special throw</string>
+    <string name="select_regular">Select regular dice throw</string>
+    <string name="select_custom">Select custom (kdn): number(k) and sides(n)</string>
+    <string name="dice"> d </string>
+    <string name="button_add">ADD</string>
+    <string name="button_delete">DELETE</string>
+    <string name="armour_class">AC</string>
+    <string name="name_profile">Input profile name (15 char.)</string>
+    <string-array name="special_throws">
+        <item>Save Throw (STR)</item>
+        <item>Save Throw Reflex (DEX)</item>
+        <item>Save Throw Fortitude (CON)</item>
+        <item>Save Throw (INT)</item>
+        <item>Save Throw Will (WIS)</item>
+        <item>Save Throw (CHA)</item>
+        <item>Attack (STR)</item>
+        <item>Attack (DEX)</item>
+        <item>Ability Check (STR)</item>
+        <item>Ability Check (DEX)</item>
+        <item>Ability Check (CON)</item>
+        <item>Ability Check (INT)</item>
+        <item>Ability Check (WIS)</item>
+        <item>Ability Check (CHA)</item>
+    </string-array>
+    <string-array name="regular_throws">
+        <item>1d4 Throw</item>
+        <item>1d6 Throw</item>
+        <item>4d6 Throw</item>
+        <item>1d8 Throw</item>
+        <item>1d10 Throw</item>
+        <item>1d12 Throw</item>
+        <item>1d20 Throw</item>
+        <item>2d20 Throw</item>
+        <item>1d100 Throw</item>
+    </string-array>
+    <string-array name="attrib_spin2">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+    </string-array>
+</resources>
