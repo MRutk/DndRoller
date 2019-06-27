@@ -1,6 +1,7 @@
 package pl.s196453.dndroller;
 
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.List;
 
 
 /**
@@ -27,14 +29,7 @@ import android.widget.Toast;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    //private static final String ARG_PARAM1 = "param1";
-    //private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    //private String mParam1;
-    //private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,26 +40,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private Spinner wisSpinner;
     private Spinner chaSpinner;
 
-    //private Spinner testSpinner;
+    private Spinner testSpinner;
 
     private Button addButton;
     private Button deleteButton;
 
-    /*private EditText strT; //no longer used, got spinners to work
-    private EditText dexT;
-    private EditText conT;
-    private EditText intT;
-    private EditText wisT;
-    private EditText chaT;*/
-
     private EditText pName;
     private EditText aClass;
 
-    public Profile prof;
-    public MyAppDatabase datab;
-
-    String a ;              //temporary for testing, a lot broke down
-    int ac,s,d,c,i,w,ch;
+    private Profile prof;
+    private MyAppDatabase datab;
+    private LiveData<List<Profile>> allProf;
 
     private Integer[] attribs = new Integer[]{3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}; //looks bad but getting values from arrys doesn't want to work with adapters //SPINNERS STILL DO NOT WORK (NULL POINT)
     //attribs = getActivity().getResources().getIntArray(R.array.attributes_spin); //calling this in oncreateview did not work
@@ -82,25 +68,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
      * @param param2 Parameter 2.
      * @return A new instance of fragment ProfileFragment.
      */
-    /*// TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }*/
 
-    /*@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-*/
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -109,7 +78,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, attribs);
 
-        //testSpinner = (Spinner) profView.findViewById(R.id.spinner4);
+        testSpinner = (Spinner) profView.findViewById(R.id.spinner4);
         //testSpinner.setAdapter(adapter);
         strSpinner = (Spinner) profView.findViewById(R.id.Strength);
         strSpinner.setAdapter(adapter);
@@ -124,13 +93,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         chaSpinner = (Spinner) profView.findViewById(R.id.charisma);
         chaSpinner.setAdapter(adapter);
 
-        /*populateSpinnerString(profView,strSpinner,R.id.Strength, R.array.attrib_spin2);
-        populateSpinner(profView,dexSpinner,R.id.dexterity);  //spinners always resulted in a null point exception
-        populateSpinner(profView,conSpinner,R.id.constitution);
-        populateSpinner(profView,intSpinner,R.id.intelligence);
-        populateSpinner(profView,wisSpinner,R.id.wisdom);
-        populateSpinner(profView,chaSpinner,R.id.charisma);*/
-
         addButton = (Button) profView.findViewById(R.id.bAdd);
         deleteButton = (Button) profView.findViewById(R.id.bDelete);
         addButton.setOnClickListener(this);
@@ -138,6 +100,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         pName =(EditText) profView.findViewById(R.id.profileName);
         aClass =(EditText) profView.findViewById(R.id.armorClass);
+
+        datab = MyAppDatabase.getInstance(getContext());
+
         /*strT =(EditText) profView.findViewById(R.id.strTx);
         dexT =(EditText) profView.findViewById(R.id.dexTx);
         conT =(EditText) profView.findViewById(R.id.conTx);
@@ -145,31 +110,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         wisT =(EditText) profView.findViewById(R.id.wisTx);
         chaT =(EditText) profView.findViewById(R.id.charTx);*/
 
-
-        datab = MyAppDatabase.getInstance(getContext());
+        /*populateSpinnerString(profView,strSpinner,R.id.Strength, R.array.attrib_spin2);
+        populateSpinner(profView,dexSpinner,R.id.dexterity);  //spinners always resulted in a null point exception
+        populateSpinner(profView,conSpinner,R.id.constitution);
+        populateSpinner(profView,intSpinner,R.id.intelligence);
+        populateSpinner(profView,wisSpinner,R.id.wisdom);
+        populateSpinner(profView,chaSpinner,R.id.charisma);*/
 
         return profView;
     }
-
-
-
-    /*// TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }*/
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -177,22 +126,25 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mListener = null;
     }
 
+    //createProfile(pName.getText().toString(), (int)strSpinner.getSelectedItem(),(int)dexSpinner.getSelectedItem(),(int)conSpinner.getSelectedItem(),(int)intSpinner.getSelectedItem(),(int)wisSpinner.getSelectedItem(),(int)chaSpinner.getSelectedItem(),Integer.parseInt(aClass.getText().toString()));
+    //createProfile(a,s,d,c,i,w,ch,ac);
+    //delProfile(pName.getText().toString());
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.bAdd: //createProfile(pName.getText().toString(), (int)strSpinner.getSelectedItem(),(int)dexSpinner.getSelectedItem(),(int)conSpinner.getSelectedItem(),(int)intSpinner.getSelectedItem(),(int)wisSpinner.getSelectedItem(),(int)chaSpinner.getSelectedItem(),Integer.parseInt(aClass.getText().toString()));
-                test();
+            case R.id.bAdd:  test();
                 new Thread(new Runnable() { @Override public void run() {
                     Looper.prepare();
-                    createProfile(a,s,d,c,i,w,ch,ac); } }) .start();
-                Log.d("CREATED?","przeszlo");
+                    createProfile(pName.getText().toString(), (int)strSpinner.getSelectedItem(),(int)dexSpinner.getSelectedItem(),(int)conSpinner.getSelectedItem(),(int)intSpinner.getSelectedItem(),(int)wisSpinner.getSelectedItem(),(int)chaSpinner.getSelectedItem(),Integer.parseInt(aClass.getText().toString()));
+                    } }) .start();
                 Toast toast = Toast.makeText(getContext(), "profile created",Toast.LENGTH_SHORT);
                 toast.show();
                 break;
-            case R.id.bDelete: //delProfile(pName.getText().toString());
+            case R.id.bDelete:
                 new Thread(new Runnable() { @Override public void run() {
                     Looper.prepare();
-                    delProfile(a); } }) .start();
+                    delProfile(pName.getText().toString()); } }) .start();
+
                 Toast toast1 = Toast.makeText(getContext(), "profile deleted",Toast.LENGTH_SHORT);
                 toast1.show();
                 break;
@@ -215,6 +167,54 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     }
 
+
+    public void createProfile(String string, int str, int dex, int con, int intel, int wis, int cha, int ac){
+        prof = new Profile(string,str,dex,con,intel,wis,cha,ac);
+        datab.profileDAO().insert(prof);
+        Log.d("TEST CREATION", "przeszlo");
+    }
+
+    public void delProfile(String string ){
+        int del = datab.profileDAO().deleteProfile(string);
+        Log.d("TEST DELETION", "przeszlo "+del);
+    }
+
+    public void getProfiles(){ //this will go in a thread
+        allProf = datab.profileDAO().getAllProfiles();
+    }
+
+    private void populateSpinnerString(View view, Spinner spinner, int id, LiveData liveData) {
+        //spinner = (Spinner) view.findViewById(id);
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(), liveData, android.R.layout.simple_spinner_dropdown_item);
+        //spinner.setAdapter(adapter);
+        // adapter def. and spinner fill should go here
+    }
+
+
+
+    public void test(){
+
+        Log.d("test begin", "still works");
+        String a = pName.getText().toString();
+        Log.d("test begin1", "still works "+a);
+        int ac = Integer.parseInt(aClass.getText().toString());
+        Log.d("test begin1", "still works  "+ac);
+        String cont = getContext().toString();
+        Log.d("IS CONTEX ", "CONTEXT  "+cont);
+        int s = (int)strSpinner.getSelectedItem();
+        Log.d("test runs", "works?  "+s);
+        int d = (int)dexSpinner.getSelectedItem();
+        int c = (int)conSpinner.getSelectedItem();
+        int i = (int)intSpinner.getSelectedItem();
+        int w = (int)wisSpinner.getSelectedItem();
+        int ch = (int)chaSpinner.getSelectedItem();
+
+        //int spinTest = (int)testSpinner.getSelectedItem();
+        //Log.d("SPINNER TEST","SPINNER item value "+spinTest); //success only if full initialization of spinner is in onCreateView
+
+        Log.d("test", " "+a+" "+s+" "+d+" "+c+" "+i+" "+w+" "+ch+" "+ac+" ");
+    }
+
     //Using this method results in a null pointer when trying to acces content of spinner
     /*private void populateSpinner(View view, Spinner spinner, int id, ArrayAdapter adapter){
         spinner = (Spinner) view.findViewById(id);
@@ -228,39 +228,54 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         spinner.setAdapter(adapter);
     }*/
 
-    public void createProfile(String string, int str, int dex, int con, int intel, int wis, int cha, int ac){
-        prof = new Profile(string,str,dex,con,intel,wis,cha,ac);
-        datab.profileDAO().insert(prof);
-        Log.d("TEST CREATION", "przeszlo");
-    }
+       /*// TODO: Rename and change types and number of parameters
+    public static ProfileFragment newInstance(String param1, String param2) {
+        ProfileFragment fragment = new ProfileFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }*/
 
-    public void delProfile(String string ){
-        int del = datab.profileDAO().deleteProfile(a);
-        Log.d("TEST DELETION", "przeszlo "+del);
-    }
+    /*@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }*/
 
-    public void test(){
+     /*@Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }*/
 
-        Log.d("test begin", "still works");
-        a = pName.getText().toString();
-        Log.d("test begin1", "still works "+a);
-        ac = Integer.parseInt(aClass.getText().toString());
-        Log.d("test begin1", "still works  "+ac);
-        String cont = getContext().toString();
-        Log.d("IS CONTEX ", "CONTEXT  "+cont);
-        s = (int)strSpinner.getSelectedItem();
-        Log.d("test runs", "works?  "+s);
-        d = (int)dexSpinner.getSelectedItem();
-        c = (int)conSpinner.getSelectedItem();
-        i = (int)intSpinner.getSelectedItem();
-        w = (int)wisSpinner.getSelectedItem();
-        ch = (int)chaSpinner.getSelectedItem();
+     /*private EditText strT; //no longer used, got spinners to work
+    private EditText dexT;
+    private EditText conT;
+    private EditText intT;
+    private EditText wisT;
+    private EditText chaT;*/
 
-        //int spinTest = (int)testSpinner.getSelectedItem();
-        //Log.d("SPINNER TEST","SPINNER item value "+spinTest); //success only if full initialization of spinner is in onCreateView
+     /*String a ;              //temporary for testing, a lot broke down
+    int ac,s,d,c,i,w,ch;*/
 
-        Log.d("test", " "+a+" "+s+" "+d+" "+c+" "+i+" "+w+" "+ch+" "+ac+" ");
-    }
+    // Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    //private static final String ARG_PARAM1 = "param1";
+    //private static final String ARG_PARAM2 = "param2";
+
+    // Rename and change types of parameters
+    //private String mParam1;
+    //private String mParam2;
 
 }
 

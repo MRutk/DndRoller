@@ -113,4 +113,8 @@ public class Profile {
         this.armourClass = profile.getArmourClass();
     }
 
+    @Override
+    public String toString(){
+        return name;
+    }
 }
