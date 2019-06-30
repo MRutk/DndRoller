@@ -28,6 +28,9 @@ import java.util.List;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//TODO:Spinner z profilami do onCreateView tu i w rollFragment update listy tylko przy przejściu między fragmentami czyli własnie on createview chyba
+
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 
@@ -39,6 +42,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private Spinner intSpinner;
     private Spinner wisSpinner;
     private Spinner chaSpinner;
+    private Spinner acSpinner;
 
     private Spinner testSpinner;
 
@@ -46,12 +50,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private Button deleteButton;
 
     private EditText pName;
-    private EditText aClass;
+    //private EditText aClass;
 
     private Profile prof;
     private MyAppDatabase datab;
     private LiveData<List<Profile>> allProf;
 
+    private Integer[] acvals = new Integer[]{10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
     private Integer[] attribs = new Integer[]{3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}; //looks bad but getting values from arrys doesn't want to work with adapters //SPINNERS STILL DO NOT WORK (NULL POINT)
     //attribs = getActivity().getResources().getIntArray(R.array.attributes_spin); //calling this in oncreateview did not work
     //adaprter requires Integer[], getResources gives me int[], casting seemed not to do anything
@@ -77,6 +82,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         View profView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, attribs);
+        ArrayAdapter<Integer> adapter1 = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, acvals);
+
 
         testSpinner = (Spinner) profView.findViewById(R.id.spinner4);
         //testSpinner.setAdapter(adapter);
@@ -92,6 +99,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         wisSpinner.setAdapter(adapter);
         chaSpinner = (Spinner) profView.findViewById(R.id.charisma);
         chaSpinner.setAdapter(adapter);
+        acSpinner = (Spinner) profView.findViewById(R.id.acSpinner);
+        acSpinner.setAdapter(adapter1);
 
         addButton = (Button) profView.findViewById(R.id.bAdd);
         deleteButton = (Button) profView.findViewById(R.id.bDelete);
@@ -99,7 +108,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         deleteButton.setOnClickListener(this);
 
         pName =(EditText) profView.findViewById(R.id.profileName);
-        aClass =(EditText) profView.findViewById(R.id.armorClass);
+        // =(EditText) profView.findViewById(R.id.armorClass);
 
         datab = MyAppDatabase.getInstance(getContext());
 
@@ -133,20 +142,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.bAdd:  test();
-                new Thread(new Runnable() { @Override public void run() {
-                    Looper.prepare();
-                    createProfile(pName.getText().toString(), (int)strSpinner.getSelectedItem(),(int)dexSpinner.getSelectedItem(),(int)conSpinner.getSelectedItem(),(int)intSpinner.getSelectedItem(),(int)wisSpinner.getSelectedItem(),(int)chaSpinner.getSelectedItem(),Integer.parseInt(aClass.getText().toString()));
-                    } }) .start();
-                Toast toast = Toast.makeText(getContext(), "profile created",Toast.LENGTH_SHORT);
-                toast.show();
+                            new Thread(new Runnable() { @Override public void run() {
+                                Looper.prepare();
+                                createProfile(pName.getText().toString(), (int)strSpinner.getSelectedItem(),(int)dexSpinner.getSelectedItem(),(int)conSpinner.getSelectedItem(),(int)intSpinner.getSelectedItem(),(int)wisSpinner.getSelectedItem(),(int)chaSpinner.getSelectedItem(),(int)acSpinner.getSelectedItem());
+                                } }) .start();
+                            Toast toast = Toast.makeText(getContext(), "profile created",Toast.LENGTH_SHORT);
+                            toast.show();
                 break;
             case R.id.bDelete:
-                new Thread(new Runnable() { @Override public void run() {
-                    Looper.prepare();
-                    delProfile(pName.getText().toString()); } }) .start();
-
-                Toast toast1 = Toast.makeText(getContext(), "profile deleted",Toast.LENGTH_SHORT);
-                toast1.show();
+                            new Thread(new Runnable() { @Override public void run() {
+                                Looper.prepare();
+                                delProfile(pName.getText().toString()); } }) .start();
+                            Toast toast1 = Toast.makeText(getContext(), "profile deleted",Toast.LENGTH_SHORT);
+                            toast1.show();
                 break;
         }
     }
@@ -162,7 +170,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        //  Update argument type and name
         void onFragmentInteraction(Uri uri);
 
     }
@@ -171,7 +179,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void createProfile(String string, int str, int dex, int con, int intel, int wis, int cha, int ac){
         prof = new Profile(string,str,dex,con,intel,wis,cha,ac);
         datab.profileDAO().insert(prof);
-        Log.d("TEST CREATION", "przeszlo");
+        Log.d("TEST CREATION", "profile created");
+        /*datab.profileDAO().update(prof);
+        Log.d("TEST UPDATE", "profile updated");
+        */
     }
 
     public void delProfile(String string ){
@@ -196,13 +207,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         Log.d("test begin", "still works");
         String a = pName.getText().toString();
-        Log.d("test begin1", "still works "+a);
-        int ac = Integer.parseInt(aClass.getText().toString());
-        Log.d("test begin1", "still works  "+ac);
+        Log.d("test begin1", "still works name= " +a);
+        // int ac = Integer.parseInt(aClass.getText().toString());
+        int ac = (int)acSpinner.getSelectedItem();
+        Log.d("test begin1", "still works  ac= "+ac);
         String cont = getContext().toString();
         Log.d("IS CONTEX ", "CONTEXT  "+cont);
         int s = (int)strSpinner.getSelectedItem();
-        Log.d("test runs", "works?  "+s);
+        Log.d("test runs", "works?  str= "+s);
         int d = (int)dexSpinner.getSelectedItem();
         int c = (int)conSpinner.getSelectedItem();
         int i = (int)intSpinner.getSelectedItem();

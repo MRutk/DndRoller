@@ -192,24 +192,6 @@
             app:layout_constraintVertical_bias="0.333" />
 
         <EditText
-            android:id="@+id/armorClass"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="9dp"
-            android:layout_marginLeft="9dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="9dp"
-            android:ems="10"
-            android:hint="@string/armour_class"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="@+id/intelligence"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/intelligence"
-            app:layout_constraintTop_toBottomOf="@+id/intelligence" />
-
-        <EditText
             android:id="@+id/profileName"
             android:layout_width="339dp"
             android:layout_height="41dp"
@@ -233,7 +215,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="292dp"
             android:layout_marginLeft="292dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:text="@string/button_add"
@@ -278,14 +260,41 @@
             android:layout_height="27dp"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="300dp"
             android:layout_marginRight="300dp"
             android:text="@string/select_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/armorClass" />
+            app:layout_constraintTop_toBottomOf="@+id/acSpinner" />
+
+        <Spinner
+            android:id="@+id/acSpinner"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="294dp"
+            android:layout_marginRight="294dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="320dp"
+            android:layout_marginRight="320dp"
+            android:text="@string/armour_class"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/intelligence" />
 
     </android.support.constraint.ConstraintLayout>
 

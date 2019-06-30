@@ -13,6 +13,7 @@ public abstract class MyAppDatabase extends RoomDatabase{
     public static MyAppDatabase getInstance(Context context){
         if (instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(),MyAppDatabase.class,"profiledb")
+                    .allowMainThreadQueries()
                     .build();
         }
         return instance;
