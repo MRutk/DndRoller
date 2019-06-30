@@ -113,8 +113,12 @@ public class Profile {
         this.armourClass = profile.getArmourClass();
     }
 
+    public static Profile[] populateDb(){
+        return new Profile[]{new Profile("zero",0,0,0,0,0,0,0 ),new Profile("default",10,10,10,10,10,10,10)};
+    }
+
     @Override
     public String toString(){
-        return name;
+        return this.name;
     }
 }

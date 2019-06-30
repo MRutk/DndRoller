@@ -16,6 +16,9 @@ public interface ProfileDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insert(Profile profile);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public void insertALL(Profile... profiles);
+
     @Update
     public void update(Profile profile);
 
@@ -28,7 +31,10 @@ public interface ProfileDAO {
     @Query("SELECT * FROM profiles")
     LiveData<List<Profile>> getAllProfiles();
 
-    @Query("delete from profiles WHERE name = :string")
+    @Query("SELECT * FROM profiles where name = :string")
+    Profile getProfle(String string);
+
+    @Query("DELETE FROM profiles WHERE name = :string")
     int deleteProfile(String string);
 
    /* @Query("SELECT name FROM profiles WHERE name =:string")

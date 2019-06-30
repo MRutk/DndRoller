@@ -43,8 +43,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private Spinner wisSpinner;
     private Spinner chaSpinner;
     private Spinner acSpinner;
-
-    private Spinner testSpinner;
+    private Spinner profileSpinner;
 
     private Button addButton;
     private Button deleteButton;
@@ -57,7 +56,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private LiveData<List<Profile>> allProf;
 
     private Integer[] acvals = new Integer[]{10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
-    private Integer[] attribs = new Integer[]{3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}; //looks bad but getting values from arrys doesn't want to work with adapters
+    private Integer[] attribs = new Integer[]{3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}; //looks bad but getting values from arrsys doesn't want to work with adapters
     //attribs = getActivity().getResources().getIntArray(R.array.attributes_spin); //calling this in oncreateview did not work
     //adaprter requires Integer[], getResources gives me int[], casting seemed not to do anything
 
@@ -87,7 +86,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         ArrayAdapter<Integer> adapter1 = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, acvals);
 
 
-        testSpinner = (Spinner) profView.findViewById(R.id.spinner4);
+        profileSpinner = (Spinner) profView.findViewById(R.id.spinner4);
         //testSpinner.setAdapter(adapter);
         strSpinner = (Spinner) profView.findViewById(R.id.Strength);
         strSpinner.setAdapter(adapter);
@@ -177,17 +176,23 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 
     public void createProfile(String string, int str, int dex, int con, int intel, int wis, int cha, int ac){
-        prof = new Profile(string,str,dex,con,intel,wis,cha,ac);
-        datab.profileDAO().insert(prof);
-        Log.d("TEST CREATION", "profile created");
+        if(string == "zero" || string =="default") {
+            prof = new Profile(string, str, dex, con, intel, wis, cha, ac);
+            datab.profileDAO().insert(prof);
+            Log.d("TEST CREATION", "profile created");
         /*datab.profileDAO().update(prof);
         Log.d("TEST UPDATE", "profile updated");
         */
+        }
+        else{Log.d("TEST INS CONDITION","tried to change one of the default profiles");}
     }
 
     public void delProfile(String string ){
-        int del = datab.profileDAO().deleteProfile(string);
-        Log.d("TEST DELETION", "przeszlo "+del);
+        if(string == "zero" || string =="default") {
+            int del = datab.profileDAO().deleteProfile(string);
+            Log.d("TEST DELETION", "profila deleted, no. of lines deleted " + del);
+        }
+        else{Log.d("TEST DEL CONDITION","tried to delete one of the default profiles");}
     }
 
     public void getProfiles(){ //this will go in a thread
@@ -240,7 +245,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         spinner.setAdapter(adapter);
     }*/
 
-       /*// TODO: Rename and change types and number of parameters
+       /*// Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
