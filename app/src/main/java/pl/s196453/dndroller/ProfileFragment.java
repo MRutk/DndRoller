@@ -1,8 +1,7 @@
 package pl.s196453.dndroller;
 
 
-import android.arch.lifecycle.LiveData;
-import android.content.Context;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
@@ -29,7 +28,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-//TODO:Spinner z profilami do onCreateView tu i w rollFragment update listy tylko przy przejściu między fragmentami czyli własnie on createview chyba
+
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
@@ -53,7 +52,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private Profile prof;
     private MyAppDatabase datab;
-    private LiveData<List<Profile>> allProf;
+    private List<Profile> profiles;
 
     private Integer[] acvals = new Integer[]{10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
     private Integer[] attribs = new Integer[]{3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}; //looks bad but getting values from arrsys doesn't want to work with adapters
@@ -82,12 +81,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         datab = MyAppDatabase.getInstance(getContext());
 
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, attribs);
-        ArrayAdapter<Integer> adapter1 = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, acvals);
+        profiles = datab.profileDAO().getAll();
+
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getContext(),android.R.layout.simple_spinner_dropdown_item, attribs);
+        ArrayAdapter<Integer> adapter1 = new ArrayAdapter<Integer>(getContext(),android.R.layout.simple_spinner_dropdown_item, acvals);
+        ArrayAdapter<Profile> adapterProf = new ArrayAdapter<Profile>(getContext(),android.R.layout.simple_spinner_dropdown_item, profiles);
 
 
-        profileSpinner = (Spinner) profView.findViewById(R.id.spinner4);
-        //testSpinner.setAdapter(adapter);
+        profileSpinner = (Spinner) profView.findViewById(R.id.profileSpinner1);
+        profileSpinner.setAdapter(adapterProf);
         strSpinner = (Spinner) profView.findViewById(R.id.Strength);
         strSpinner.setAdapter(adapter);
         dexSpinner = (Spinner) profView.findViewById(R.id.dexterity);
@@ -151,7 +153,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             case R.id.bDelete:
                             new Thread(new Runnable() { @Override public void run() {
                                 Looper.prepare();
-                                delProfile(pName.getText().toString()); } }) .start();
+                                delProfile(profileSpinner.getSelectedItem().toString()); } }) .start();
                             Toast toast1 = Toast.makeText(getContext(), "profile deleted",Toast.LENGTH_SHORT);
                             toast1.show();
                 break;
@@ -176,36 +178,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 
     public void createProfile(String string, int str, int dex, int con, int intel, int wis, int cha, int ac){
-        if(string == "zero" || string =="default") {
             prof = new Profile(string, str, dex, con, intel, wis, cha, ac);
             datab.profileDAO().insert(prof);
             Log.d("TEST CREATION", "profile created");
         /*datab.profileDAO().update(prof);
         Log.d("TEST UPDATE", "profile updated");
         */
-        }
-        else{Log.d("TEST INS CONDITION","tried to change one of the default profiles");}
     }
 
     public void delProfile(String string ){
-        if(string == "zero" || string =="default") {
             int del = datab.profileDAO().deleteProfile(string);
-            Log.d("TEST DELETION", "profila deleted, no. of lines deleted " + del);
-        }
-        else{Log.d("TEST DEL CONDITION","tried to delete one of the default profiles");}
+            Log.d("TEST DELETION", "profile deleted, no. of lines deleted " + del);
     }
-
-    public void getProfiles(){ //this will go in a thread
-        allProf = datab.profileDAO().getAllProfiles();
-    }
-
-    private void populateSpinnerString(View view, Spinner spinner, int id, LiveData liveData) {
-        //spinner = (Spinner) view.findViewById(id);
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(), liveData, android.R.layout.simple_spinner_dropdown_item);
-        //spinner.setAdapter(adapter);
-        // adapter def. and spinner fill should go here
-    }
-
 
 
     public void test(){

@@ -47,6 +47,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/bLoad"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -147,7 +150,7 @@
             android:layout_height="103dp"
             android:layout_marginStart="48dp"
             android:layout_marginLeft="48dp"
-            android:layout_marginTop="340dp"
+            android:layout_marginTop="394dp"
             android:layout_marginEnd="48dp"
             android:layout_marginRight="48dp"
             android:isScrollContainer="true"
@@ -155,7 +158,7 @@
             android:text="Results go here"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="100dp"
-            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_max="310dp" />
@@ -210,7 +213,17 @@
             android:text="@string/title_roll"
             app:layout_constraintBottom_toTopOf="@+id/bRoll2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:layout_constraintVertical_bias="0.037" />
+            app:layout_constraintTop_toBottomOf="@+id/bLoad" />
+
+        <Button
+            android:id="@+id/bLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:text="@string/load"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

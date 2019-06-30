@@ -32,7 +32,7 @@ public interface ProfileDAO {
     LiveData<List<Profile>> getAllProfiles();
 
     @Query("SELECT * FROM profiles where name = :string")
-    Profile getProfle(String string);
+    Profile getProfile(String string);
 
     @Query("DELETE FROM profiles WHERE name = :string")
     int deleteProfile(String string);

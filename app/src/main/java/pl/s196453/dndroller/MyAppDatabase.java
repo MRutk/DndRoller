@@ -34,7 +34,7 @@ public abstract class MyAppDatabase extends RoomDatabase{
                             @Override
                             public void run(){
                             getInstance(context).profileDAO()
-                                    .insertALL(Profile.populateDb());
+                                    .insert(Profile.populateDb());
                             }
                         });
                     }
