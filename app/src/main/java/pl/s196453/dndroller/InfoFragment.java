@@ -19,18 +19,18 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class InfoFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+    //  Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     //private static final String ARG_PARAM1 = "param1";
     //private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    //  Rename and change types of parameters
     //private String mParam1;
     //private String mParam2;
     TextView myText;
     TextView myText2;
-    String info = "This is an app made for a university project, more info on projects github @MRutk.";
-    String info2 = "Throws are made individually and then summed.";
+    //String info = "This is an app made for a university project, more info on projects github @MRutk.";
+    //String info2 = "Throws are made individually and then summed.";
     private OnFragmentInteractionListener mListener;
 
 
@@ -46,7 +46,7 @@ public class InfoFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment InfoFragment.
      */
-    /*// TODO: Rename and change types and number of parameters
+    /*//  Rename and change types and number of parameters
     public static InfoFragment newInstance(String param1, String param2) {
         InfoFragment fragment = new InfoFragment();
         Bundle args = new Bundle();
@@ -73,8 +73,8 @@ public class InfoFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_info, container, false);
         myText = (TextView) v.findViewById(R.id.infoText);
         myText2 = (TextView) v.findViewById(R.id.infoText2);
-        myText.setText(info);
-        myText2.setText(info2);
+        myText.setText(R.string.info);
+        myText2.setText(R.string.info2);
         return v;
     }
 
@@ -83,7 +83,7 @@ public class InfoFragment extends Fragment {
         myText.setText(text);
     }*/
 
-    /*// TODO: Rename method, update argument and hook method into UI event
+    /*//  Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -118,7 +118,7 @@ public class InfoFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

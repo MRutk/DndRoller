@@ -57,7 +57,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private LiveData<List<Profile>> allProf;
 
     private Integer[] acvals = new Integer[]{10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31};
-    private Integer[] attribs = new Integer[]{3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}; //looks bad but getting values from arrys doesn't want to work with adapters //SPINNERS STILL DO NOT WORK (NULL POINT)
+    private Integer[] attribs = new Integer[]{3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19}; //looks bad but getting values from arrys doesn't want to work with adapters
     //attribs = getActivity().getResources().getIntArray(R.array.attributes_spin); //calling this in oncreateview did not work
     //adaprter requires Integer[], getResources gives me int[], casting seemed not to do anything
 
