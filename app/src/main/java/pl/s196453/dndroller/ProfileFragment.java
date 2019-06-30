@@ -81,6 +81,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View profView = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        datab = MyAppDatabase.getInstance(getContext());
+
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, attribs);
         ArrayAdapter<Integer> adapter1 = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, acvals);
 
@@ -109,8 +111,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         pName =(EditText) profView.findViewById(R.id.profileName);
         // =(EditText) profView.findViewById(R.id.armorClass);
-
-        datab = MyAppDatabase.getInstance(getContext());
 
         /*strT =(EditText) profView.findViewById(R.id.strTx);
         dexT =(EditText) profView.findViewById(R.id.dexTx);
