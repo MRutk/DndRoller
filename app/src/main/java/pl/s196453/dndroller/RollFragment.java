@@ -1,6 +1,6 @@
 package pl.s196453.dndroller;
 
-import android.content.Context;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
@@ -12,11 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
-
+//TODO:add more throws (improve functionality)
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -52,41 +53,18 @@ public class RollFragment extends Fragment implements View.OnClickListener{
     private Button rollRegB;
     private Button rollCustB;
 
+    private TextView results;
+
     private Integer[] diceNumbers = new Integer[]{1,2,3,4,5,6,7,8,9,10}; //looks bad explained in ProfileFragment.java (adapter does like int values form resource)
     private Integer[] sideNumbers = new Integer[]{3,4,6,8,10,12,20,100};
 
-    private Profile loadedProf;
+    private Profile loadedProf = new Profile("name",3,3,3,3,3,3,10);
+    private Dice dice = new Dice();
 
     public RollFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RollFragment.
-     */
-    /*//  Rename and change types and number of parameters
-    public static RollFragment newInstance(String param1, String param2) {
-        RollFragment fragment = new RollFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }*/
-
-   /* @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,9 +103,7 @@ public class RollFragment extends Fragment implements View.OnClickListener{
         rollRegB.setOnClickListener(this);
         rollCustB.setOnClickListener(this);
 
-
-
-
+        results = (TextView)rollView.findViewById(R.id.resultText);
 
         /*populateSpinnerString(rollView,specThrow,R.id.specialThrowSpinner,R.array.special_throws);
         populateSpinnerString(rollView,regThrow,R.id.regularTSpinner,R.array.regular_throws);
@@ -143,17 +119,6 @@ public class RollFragment extends Fragment implements View.OnClickListener{
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }*/
 
     @Override
     public void onDetach() {
@@ -172,14 +137,86 @@ public class RollFragment extends Fragment implements View.OnClickListener{
                 Toast toast = Toast.makeText(getContext(), "profile loaded",Toast.LENGTH_SHORT);
                 toast.show();
                 break;
-            case R.id.bRoll:
-
+            case R.id.bRoll:        //Probably could have done this a better way
+                switch(specThrow.getSelectedItem().toString()){
+                    case "Save Throw (STR)":
+                        results.setText("Save Throw (STR) = " + dice.specialThrow(loadedProf.getStrength()));
+                        break;
+                    case "Save Throw Reflex (DEX)":
+                        results.setText("Save Throw (DEX) = " + dice.specialThrow(loadedProf.getDexterity()));
+                        break;
+                    case "Save Throw Fortitude (CON)":
+                        results.setText("Save Throw (CON) = " + dice.specialThrow(loadedProf.getConstitution()));
+                        break;
+                    case "Save Throw (INT)":
+                        results.setText("Save Throw (INT) = " + dice.specialThrow(loadedProf.getIntelligence()));
+                        break;
+                    case "Save Throw Will (WIS)":
+                        results.setText("Save Throw (WIS) = " + dice.specialThrow(loadedProf.getWisdom()));
+                        break;
+                    case "Save Throw (CHA)":
+                        results.setText("Save Throw (CHA) = " + dice.specialThrow(loadedProf.getCharisma()));
+                        break;
+                    case "Attack (STR)":
+                        results.setText("Attack Throw (STR) = " + dice.specialThrow(loadedProf.getStrength()));
+                        break;
+                    case "Attack (DEX)":
+                        results.setText("Attack Throw (DEX) = " + dice.specialThrow(loadedProf.getStrength()));
+                        break;
+                    case "Ability Check (STR)":
+                        results.setText("Ability Check (STR) = " + dice.specialThrow(loadedProf.getStrength()));
+                        break;
+                    case "Ability Check (DEX)":
+                        results.setText("Ability Check (DEX) = " + dice.specialThrow(loadedProf.getDexterity()));
+                        break;
+                    case "Ability Check (CON)":
+                        results.setText("Ability Check (CON) = " + dice.specialThrow(loadedProf.getConstitution()));
+                        break;
+                    case "Ability Check (INT)":
+                        results.setText("Ability Check (INT) = " + dice.specialThrow(loadedProf.getIntelligence()));
+                        break;
+                    case "Ability Check (WIS)":
+                        results.setText("Ability Check (WIS) = " + dice.specialThrow(loadedProf.getWisdom()));
+                        break;
+                    case "Ability Check (CHA)":
+                        results.setText("Ability Check (CHA) = " + dice.specialThrow(loadedProf.getCharisma()));
+                        break;
+                }
                 break;
             case R.id.bRoll2:
-
+                switch(regThrow.getSelectedItem().toString()) {
+                    case "1d4 Throw":
+                        results.setText("Throw results 1d4 = " + dice.throwDice(4,1) );
+                        break;
+                    case "1d6 Throw":
+                        results.setText("Throw results 1d6 = " + dice.throwDice(6,1) );
+                        break;
+                    case "4d6 Throw":
+                        results.setText("Throw results 4d6 = " + dice.throwDice(6,4) );
+                        break;
+                    case "1d8 Throw":
+                        results.setText("Throw results 1d8 = " + dice.throwDice(8,1) );
+                        break;
+                    case "1d10 Throw":
+                        results.setText("Throw results 1d10 = " + dice.throwDice(10,1) );
+                        break;
+                    case "1d12 Throw":
+                        results.setText("Throw results 1d12 = " + dice.throwDice(12,1) );
+                        break;
+                    case "1d20 Throw":
+                        results.setText("Throw results 1d20 = " + dice.throwDice(20,1) );
+                        break;
+                    case "2d20 Throw":
+                        results.setText("Throw results 2d20 = " + dice.throwDice(20,2) );
+                        break;
+                    case "1d100 Throw":
+                        results.setText("Throw results 1d100 = " + dice.throwDice(100,1) );
+                        break;
+                }
                 break;
             case R.id.bRoll3:
-
+                int roll = dice.throwDice((int)sidesNo.getSelectedItem(),(int)diceNo.getSelectedItem());
+                results.setText("Throw results " + diceNo.getSelectedItem().toString() + "d" + sidesNo.getSelectedItem().toString() + " = " + roll);
                 break;
         }
     }
@@ -218,4 +255,5 @@ public class RollFragment extends Fragment implements View.OnClickListener{
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, array);
         spinner.setAdapter(adapter);
     }*/
+
 }

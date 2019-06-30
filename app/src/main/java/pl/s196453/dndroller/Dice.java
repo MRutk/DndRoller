@@ -8,9 +8,13 @@ public class Dice {
     public int k;
     private Random r = new Random();
 
+    public Dice(){
+
+    }
+
     public String specialThrow(int attribute){
         int throwResult = throwDice(20,1);
-        String result = "Throw " + throwResult + " Mod " + abilityModCheck(attribute) + "/n";
+        String result = "Throw: " + throwResult + " + Mod: " + abilityModCheck(attribute) + " = " + (throwResult+abilityModCheck(attribute));
         return result;
     }
 
@@ -21,7 +25,7 @@ public class Dice {
 
     public int throwDice(int sides, int ammount){
         int res = 0;
-        for(int i=1; i<ammount; i++){
+        for(int i=1; i<=ammount; i++){
             res +=r.nextInt(sides) + 1;
         }
         return res;

@@ -14,6 +14,7 @@ public abstract class MyAppDatabase extends RoomDatabase{
 
     private static MyAppDatabase instance;
 
+    //method creating instance od db to use in fragments
     public static MyAppDatabase getInstance(Context context){
         if (instance == null){
             /*instance = Room.databaseBuilder(context.getApplicationContext(),MyAppDatabase.class,"profiledb")
@@ -24,6 +25,8 @@ public abstract class MyAppDatabase extends RoomDatabase{
         return instance;
     }
 
+    //method to build db and ad a default profile through an executor so it does not take up 'main' time
+    //added the default profile only once
     private static MyAppDatabase buildDb (final Context context){
         return Room.databaseBuilder(context, MyAppDatabase.class, "profileDb")
                 .addCallback(new Callback(){
