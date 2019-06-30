@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-//TODO:add more throws (improve functionality)
+//TODO:add more throws ,improve functionality (after a dnd session need to know what is important)
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
