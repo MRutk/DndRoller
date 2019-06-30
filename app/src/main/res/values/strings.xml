@@ -19,7 +19,7 @@
     <string name="armour_class">AC</string>
     <string name="name_profile">Input profile name (15 char.)</string>
     <string name="info">This is an app made for a university project, more info on projects github @MRutk.</string>
-    <string name="info2">Throws are made individually and then summed.</string>
+    <string name="info2">Throws are made individually and then summed. Profile list updates on fragment load</string>
     <string name="load">LOAD</string>
     <string-array name="special_throws">
         <item>Save Throw (STR)</item>

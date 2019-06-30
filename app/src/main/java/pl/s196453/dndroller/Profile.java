@@ -90,6 +90,17 @@ public class Profile {
         this.armourClass = armourClass;
     }
 
+    @Ignore
+    public Profile(Profile profile){
+        this.name = profile.getName();
+        this.strength = profile.getStrength();
+        this.dexterity = profile.getDexterity();
+        this.constitution = profile.getConstitution();
+        this.intelligence = profile.getIntelligence();
+        this.wisdom = profile.getWisdom();
+        this.charisma = profile.getCharisma();
+        this.armourClass = profile.getArmourClass();
+    }
 
     public Profile(String name, int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int armourClass){
         this.name = name;
@@ -100,17 +111,6 @@ public class Profile {
         this.wisdom = wisdom;
         this.charisma = charisma;
         this.armourClass = armourClass;
-    }
-
-    public Profile(Profile profile){
-        this.name = profile.getName();
-        this.strength = profile.getStrength();
-        this.dexterity = profile.getDexterity();
-        this.constitution = profile.getConstitution();
-        this.intelligence = profile.getIntelligence();
-        this.wisdom = profile.getWisdom();
-        this.charisma = profile.getCharisma();
-        this.armourClass = profile.getArmourClass();
     }
 
     public static Profile populateDb(){

@@ -42,7 +42,7 @@ public abstract class MyAppDatabase extends RoomDatabase{
                         });
                     }
                 })
-                .allowMainThreadQueries()
+                .allowMainThreadQueries() //not recommended but every call to db in project is done through a thread or a thread executor
                 .build();
     }
 

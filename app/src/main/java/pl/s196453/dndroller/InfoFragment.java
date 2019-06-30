@@ -19,18 +19,9 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class InfoFragment extends Fragment {
-    //  Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    //private static final String ARG_PARAM1 = "param1";
-    //private static final String ARG_PARAM2 = "param2";
 
-    //  Rename and change types of parameters
-    //private String mParam1;
-    //private String mParam2;
     TextView myText;
     TextView myText2;
-    //String info = "This is an app made for a university project, more info on projects github @MRutk.";
-    //String info2 = "Throws are made individually and then summed.";
     private OnFragmentInteractionListener mListener;
 
 
@@ -77,11 +68,6 @@ public class InfoFragment extends Fragment {
         myText2.setText(R.string.info2);
         return v;
     }
-
-    /*@Override
-    public void showText(String text){
-        myText.setText(text);
-    }*/
 
     /*//  Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

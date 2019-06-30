@@ -20,15 +20,15 @@ public interface ProfileDAO {
     public void insertALL(Profile... profiles);
 
     @Update
-    public void update(Profile profile);
+    public void update(Profile profile);    //not used, see confilct resolution on isert
 
     @Delete
-    public void delete(Profile profile);
+    public void delete(Profile profile);    //not used, selecting profile to delete by passing name
 
     @Query("SELECT * FROM profiles")
     public List<Profile> getAll();
 
-    @Query("SELECT * FROM profiles")
+    @Query("SELECT * FROM profiles")        //did not get livedata to work with spinner, deemed regular list is enough for my use case
     LiveData<List<Profile>> getAllProfiles();
 
     @Query("SELECT * FROM profiles where name = :string")

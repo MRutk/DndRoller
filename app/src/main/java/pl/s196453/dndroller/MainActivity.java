@@ -13,8 +13,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActionBar topbar; //used to change name of actionbar to sth different than def. app name
-    //public MyAppDatabase database;
+    private ActionBar topbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         topbar.setTitle(R.string.title_roll);
         fragmentLoad(new RollFragment());
 
-        //MyAppDatabase database = Room.databaseBuilder(this, MyAppDatabase.class, "profiledb")
+        //MyAppDatabase database = Room.databaseBuilder(this, MyAppDatabase.class, "profiledb") //not needed fragments call an instance of db
         //        .build();
     }
 
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    //changing fragments and title of action bar
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

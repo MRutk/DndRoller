@@ -27,20 +27,11 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class RollFragment extends Fragment implements View.OnClickListener{
-    //  Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    //private static final String ARG_PARAM1 = "param1";
-    //private static final String ARG_PARAM2 = "param2";
-
-    //  Rename and change types of parameters
-    //private String mParam1;
-    //private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
     private MyAppDatabase datab;
     private List<Profile> profiles;
-    private Profile prof;
 
     private Spinner specThrow; //specialThrowSpinner
     private Spinner regThrow; //regTSpinner
@@ -55,7 +46,7 @@ public class RollFragment extends Fragment implements View.OnClickListener{
 
     private TextView results;
 
-    private Integer[] diceNumbers = new Integer[]{1,2,3,4,5,6,7,8,9,10}; //looks bad explained in ProfileFragment.java (adapter does like int values form resource)
+    private Integer[] diceNumbers = new Integer[]{1,2,3,4,5,6,7,8,9,10}; //looks bad explained in ProfileFragment.java (adapter does not like int values form resource)
     private Integer[] sideNumbers = new Integer[]{3,4,6,8,10,12,20,100};
 
     private Profile loadedProf = new Profile("name",3,3,3,3,3,3,10);
@@ -94,9 +85,9 @@ public class RollFragment extends Fragment implements View.OnClickListener{
         sidesNo.setAdapter(adapter3);
 
         profileButton = (Button) rollView.findViewById(R.id.bLoad);
-        rollSpecB = (Button) rollView.findViewById(R.id.bRoll);
-        rollRegB = (Button) rollView.findViewById(R.id.bRoll2);
-        rollCustB = (Button) rollView.findViewById(R.id.bRoll3);
+        rollSpecB = (Button) rollView.findViewById(R.id.bRoll); //special throws
+        rollRegB = (Button) rollView.findViewById(R.id.bRoll2); //regular throws
+        rollCustB = (Button) rollView.findViewById(R.id.bRoll3);//custom throws
 
         profileButton.setOnClickListener(this);
         rollSpecB.setOnClickListener(this);
@@ -124,6 +115,7 @@ public class RollFragment extends Fragment implements View.OnClickListener{
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        datab.destInstance();
     }
 
     @Override
