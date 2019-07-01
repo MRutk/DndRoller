@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private void fragmentLoad(Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null); //passes data to save from fragment to back stack
+        transaction.addToBackStack(null); //passes data to save from fragment to back stack in this case null
         transaction.commit();
     }
 

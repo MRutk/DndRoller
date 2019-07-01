@@ -101,17 +101,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         deleteButton.setOnClickListener(this);
 
         pName =(EditText) profView.findViewById(R.id.profileName);
-        // =(EditText) profView.findViewById(R.id.armorClass);
-
-        /*strT =(EditText) profView.findViewById(R.id.strTx);
-        dexT =(EditText) profView.findViewById(R.id.dexTx);
-        conT =(EditText) profView.findViewById(R.id.conTx);
-        intT =(EditText) profView.findViewById(R.id.intTx);
-        wisT =(EditText) profView.findViewById(R.id.wisTx);
-        chaT =(EditText) profView.findViewById(R.id.charTx);*/
 
         /*populateSpinnerString(profView,strSpinner,R.id.Strength, R.array.attrib_spin2);
-        populateSpinner(profView,dexSpinner,R.id.dexterity);  //spinners always resulted in a null point exception
+        populateSpinner(profView,dexSpinner,R.id.dexterity);  //spinners initialized this way always resulted in a null point exception when referencing
         populateSpinner(profView,conSpinner,R.id.constitution);
         populateSpinner(profView,intSpinner,R.id.intelligence);
         populateSpinner(profView,wisSpinner,R.id.wisdom);
