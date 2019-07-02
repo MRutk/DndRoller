@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.stream.IntStream; //to high api level required
 
-//TODO:add more throws ,improve functionality (after a dnd session need to know what is important)
+//TODO:add more throws ,improve functionality (after a dnd session, need to know what is important)
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -95,6 +97,7 @@ public class RollFragment extends Fragment implements View.OnClickListener{
         rollCustB.setOnClickListener(this);
 
         results = (TextView)rollView.findViewById(R.id.resultText);
+        results.setMovementMethod(new ScrollingMovementMethod());
 
         /*populateSpinnerString(rollView,specThrow,R.id.specialThrowSpinner,R.array.special_throws);
         populateSpinnerString(rollView,regThrow,R.id.regularTSpinner,R.array.regular_throws);
@@ -121,13 +124,21 @@ public class RollFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.bLoad:
-                new Thread(new Runnable() { @Override public void run() {
-                    Looper.prepare();
-                    loadProfile(profSpiner.getSelectedItem().toString());
-                } }) .start();
-                Toast toast = Toast.makeText(getContext(), "profile loaded",Toast.LENGTH_SHORT);
-                toast.show();
+            case R.id.bLoad:    //constraints improved after project review, previous contraint did not prevent crashing (did not stop from trying to reference a null object)
+                if(profSpiner.getCount() == 0) {
+                    Log.d("LOAD TEST", "tried to load null profile");
+                }
+                else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Looper.prepare();
+                            loadProfile(profSpiner.getSelectedItem().toString());
+                        }
+                    }).start();
+                    Toast toast = Toast.makeText(getContext(), "profile loaded", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 break;
             case R.id.bRoll:        //Probably could have done this a better way
                 switch(specThrow.getSelectedItem().toString()){
@@ -184,7 +195,15 @@ public class RollFragment extends Fragment implements View.OnClickListener{
                         results.setText("Throw results 1d6 = " + dice.throwDice(6,1) );
                         break;
                     case "4d6 Throw":
-                        results.setText("Throw results 4d6 = " + dice.throwDice(6,4) );
+                        int[] temp = new int[4];                                     //also added after project review
+                        results.setText("Throw results 4d6 : \n");      //temporary solution hopefully will implement a beter method in Dice class
+                        for(int i=0;i<4; i++){                          //TODO:Better method of rolling dice allowing for multiple throw representation
+                            temp[i] = dice.throwDice(6,1);
+                            results.append("T" + (i+1) +" = "+ temp[i] + "\n");
+                        }
+                        //results.append("Sum = " + (IntStream.of(temp).sum())); //required api level(24) would exclude older devices
+                        results.append("Sum = " + (temp[0]+temp[1]+temp[2]+temp[3]));
+                        //results.setText("Throw results 4d6 = " + dice.throwDice(6,4) );
                         break;
                     case "1d8 Throw":
                         results.setText("Throw results 1d8 = " + dice.throwDice(8,1) );
@@ -199,7 +218,7 @@ public class RollFragment extends Fragment implements View.OnClickListener{
                         results.setText("Throw results 1d20 = " + dice.throwDice(20,1) );
                         break;
                     case "2d20 Throw":
-                        results.setText("Throw results 2d20 = " + dice.throwDice(20,2) );
+                        results.setText("Throw results 2d20 : \n" + "Throw 1: " + dice.throwDice(20,1) + "  Throw 2: " + dice.throwDice(20,1)); //temp. solution see comment above
                         break;
                     case "1d100 Throw":
                         results.setText("Throw results 1d100 = " + dice.throwDice(100,1) );
@@ -229,11 +248,8 @@ public class RollFragment extends Fragment implements View.OnClickListener{
     }
 
     public void loadProfile(String string){
-        if(string != null) {
             loadedProf = datab.profileDAO().getProfile(string);
             Log.d("LOAD TEST", "Profile loaded, profile name " + loadedProf.getName());
-        }
-        else{Log.d("LOAD TEST", "tried to load null profile" );}
     }
 
    /* private void populateSpinnerString(View view, Spinner spinner, int id, int array){

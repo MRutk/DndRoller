@@ -122,20 +122,45 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.bAdd:  test();
-                            new Thread(new Runnable() { @Override public void run() {
+            case R.id.bAdd:  test();        //name constraints added after project review on monday evening
+                    if(pName.getText().toString().equals("DEFAULT") || pName.getText().toString().isEmpty()){
+                    Log.d("TEST DELETION", "Tried to change default profile or pass an empty profile name, change denied");
+                        Toast toast = Toast.makeText(getContext(), "INVALID PROFILE NAME", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
                                 Looper.prepare();
-                                createProfile(pName.getText().toString(), (int)strSpinner.getSelectedItem(),(int)dexSpinner.getSelectedItem(),(int)conSpinner.getSelectedItem(),(int)intSpinner.getSelectedItem(),(int)wisSpinner.getSelectedItem(),(int)chaSpinner.getSelectedItem(),(int)acSpinner.getSelectedItem());
-                                } }) .start();
-                            Toast toast = Toast.makeText(getContext(), "profile created",Toast.LENGTH_SHORT);
-                            toast.show();
+                                createProfile(pName.getText().toString(), (int) strSpinner.getSelectedItem(), (int) dexSpinner.getSelectedItem(), (int) conSpinner.getSelectedItem(), (int) intSpinner.getSelectedItem(), (int) wisSpinner.getSelectedItem(), (int) chaSpinner.getSelectedItem(), (int) acSpinner.getSelectedItem());
+                            }
+                        }).start();
+                        Toast toast = Toast.makeText(getContext(), "profile created", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 break;
             case R.id.bDelete:
-                            new Thread(new Runnable() { @Override public void run() {
+                if(profileSpinner.getCount() != 0) {
+                    if (profileSpinner.getSelectedItem().toString().equals("DEFAULT")) {
+                        Log.d("TEST DELETION", "Tried to change default profile, change denied");
+                        Toast toast = Toast.makeText(getContext(), "Can not delete default profile", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
                                 Looper.prepare();
-                                delProfile(profileSpinner.getSelectedItem().toString()); } }) .start();
-                            Toast toast1 = Toast.makeText(getContext(), "profile deleted",Toast.LENGTH_SHORT);
-                            toast1.show();
+                                delProfile(profileSpinner.getSelectedItem().toString());
+                            }
+                        }).start();
+                        Toast toast1 = Toast.makeText(getContext(), "profile deleted", Toast.LENGTH_SHORT);
+                        toast1.show();
+                    }
+                }
+                else{
+                    Log.d("TEST DELETION", "Tried to reference a non populated spinner");
+                }
                 break;
         }
     }

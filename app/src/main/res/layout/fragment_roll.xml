@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RollFragment">
+    tools:context=".RollFragment"
+    android:fillViewport="true">
 
 
     <android.support.constraint.ConstraintLayout
@@ -147,7 +148,7 @@
         <TextView
             android:id="@+id/resultText"
             android:layout_width="300dp"
-            android:layout_height="103dp"
+            android:layout_height="260dp"
             android:layout_marginStart="48dp"
             android:layout_marginLeft="48dp"
             android:layout_marginTop="394dp"
@@ -156,8 +157,8 @@
             android:isScrollContainer="true"
             android:scrollbars="vertical"
             android:text="Results go here"
-            android:textSize="20sp"
             android:textColor="#000"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="100dp"
             app:layout_constraintHorizontal_bias="0.466"
@@ -228,4 +229,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
-</FrameLayout>
+</ScrollView>
